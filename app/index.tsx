@@ -1,19 +1,41 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as AppleAuthentication from "expo-apple-authentication";
+import * as Google from "expo-auth-session/providers/google";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as WebBrowser from "expo-web-browser";
+import { useEffect } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 
+import { GoogleLogo } from "@/components/icons/google-logo";
+
+WebBrowser.maybeCompleteAuthSession();
+
 export default function LoginScreen() {
+  // TODO: Google Cloud Console에서 OAuth 클라이언트 ID 발급 후 아래에 입력
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: "YOUR_ANDROID_CLIENT_ID",
+    iosClientId: "YOUR_IOS_CLIENT_ID",
+    webClientId: "YOUR_WEB_CLIENT_ID",
+  });
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { authentication } = response;
+      // TODO: authentication.accessToken을 백엔드로 전송하여 검증
+      console.log("Google Login Success:", authentication);
+      router.replace("/(tabs)");
+    }
+  }, [response]);
+
   const handleKakaoLogin = () => {
     // TODO: 카카오 로그인 구현
     router.replace("/(tabs)");
   };
 
   const handleGoogleLogin = () => {
-    // TODO: Google 로그인 구현
-    router.replace("/(tabs)");
+    promptAsync();
   };
 
   const handleAppleLogin = async () => {
@@ -67,10 +89,11 @@ export default function LoginScreen() {
 
           <Pressable
             onPress={handleGoogleLogin}
-            className="flex-row items-center justify-center bg-white rounded-xl py-4 mb-3 active:opacity-80"
+            disabled={!request}
+            className={`flex-row items-center justify-center bg-white rounded-xl py-4 mb-3 ${!request ? "opacity-50" : "active:opacity-80"}`}
           >
             <View className="w-6 h-6 mr-3 items-center justify-center">
-              <Text className="text-lg font-bold">G</Text>
+              <GoogleLogo size={22} />
             </View>
             <Text className="text-gray-800 text-base font-semibold">Google로 시작하기</Text>
           </Pressable>
