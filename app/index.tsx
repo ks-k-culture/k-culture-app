@@ -24,14 +24,16 @@ export default function LoginScreen() {
     if (response?.type === "success") {
       const { authentication } = response;
       // TODO: authentication.accessToken을 백엔드로 전송하여 검증
+      // TODO: 신규 사용자면 onboarding, 기존 사용자면 (tabs)로 이동
       console.log("Google Login Success:", authentication);
-      router.replace("/(tabs)");
+      router.replace("/onboarding");
     }
   }, [response]);
 
   const handleKakaoLogin = () => {
     // TODO: 카카오 로그인 구현
-    router.replace("/(tabs)");
+    // TODO: 신규 사용자면 onboarding, 기존 사용자면 (tabs)로 이동
+    router.replace("/onboarding");
   };
 
   const handleGoogleLogin = () => {
@@ -47,8 +49,9 @@ export default function LoginScreen() {
         ],
       });
       // TODO: credential.identityToken을 백엔드로 전송하여 검증
+      // TODO: 신규 사용자면 onboarding, 기존 사용자면 (tabs)로 이동
       console.log("Apple Login Success:", credential);
-      router.replace("/(tabs)");
+      router.replace("/onboarding");
     } catch (e: any) {
       if (e.code === "ERR_REQUEST_CANCELED") {
         console.log("User canceled Apple Sign In");
