@@ -6,7 +6,8 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
-import { Platform, Pressable, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { GoogleLogo } from "@/components/icons/google-logo";
 
@@ -62,14 +63,15 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-black">
       <LinearGradient
         colors={["#1a0a2e", "#16082a", "#0d0615", "#000000"]}
         locations={[0, 0.3, 0.6, 1]}
-        className="flex-1"
-      >
-        <StatusBar style="light" />
+        style={StyleSheet.absoluteFillObject}
+      />
+      <StatusBar style="light" />
 
+      <SafeAreaView className="flex-1" edges={["top", "bottom"]}>
         <View className="flex-1 items-center justify-center px-8">
           <View className="items-center mb-4">
             <Text className="text-white text-5xl font-bold tracking-wider">K-Culture</Text>
@@ -79,7 +81,7 @@ export default function LoginScreen() {
           <Text className="text-gray-400 text-lg mt-4 text-center">한류 문화의 모든 것</Text>
         </View>
 
-        <View className="px-6 pb-12">
+        <View className="px-6 pb-3">
           <Pressable
             onPress={handleKakaoLogin}
             className="flex-row items-center justify-center bg-[#FEE500] rounded-xl py-4 mb-3 active:opacity-80"
@@ -113,7 +115,7 @@ export default function LoginScreen() {
 
           <Text className="text-gray-600 text-center text-sm mt-6">ver.1.0.0</Text>
         </View>
-      </LinearGradient>
+      </SafeAreaView>
     </View>
   );
 }

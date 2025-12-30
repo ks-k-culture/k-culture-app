@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 
 interface SplashScreenProps {
@@ -31,17 +31,18 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
   }));
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-black">
       <LinearGradient
         colors={["#1a0a2e", "#16082a", "#0d0615", "#000000"]}
         locations={[0, 0.3, 0.6, 1]}
-        className="flex-1 items-center justify-center"
-      >
+        style={StyleSheet.absoluteFillObject}
+      />
+      <View className="flex-1 items-center justify-center">
         <Animated.View style={animatedStyle} className="items-center">
           <Text className="text-white text-6xl font-bold tracking-wider">K-Culture</Text>
           <View className="w-20 h-1 bg-purple-500 rounded-full mt-4" />
         </Animated.View>
-      </LinearGradient>
+      </View>
     </View>
   );
 }
