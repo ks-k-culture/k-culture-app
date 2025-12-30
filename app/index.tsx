@@ -104,13 +104,13 @@ export default function LoginScreen() {
           </Pressable>
 
           {Platform.OS === "ios" && (
-            <AppleAuthentication.AppleAuthenticationButton
-              buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-              cornerRadius={12}
-              style={{ height: 56, marginBottom: 12 }}
+            <Pressable
               onPress={handleAppleLogin}
-            />
+              className="flex-row items-center justify-center bg-white rounded-xl py-4 mb-3 active:opacity-80"
+            >
+              <Ionicons name="logo-apple" size={22} color="#000" style={{ marginRight: 12 }} />
+              <Text className="text-black text-base font-semibold">Apple로 시작하기</Text>
+            </Pressable>
           )}
 
           <Text className="text-gray-600 text-center text-sm mt-6">ver.1.0.0</Text>
