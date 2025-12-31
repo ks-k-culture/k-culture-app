@@ -47,6 +47,7 @@ export default function RootLayout() {
           <Stack.Screen name="inquiry" options={{ headerShown: false }} />
           <Stack.Screen name="settings" options={{ headerShown: false }} />
           <Stack.Screen name="partner-connect" options={{ headerShown: false }} />
+          <Stack.Screen name="faq" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

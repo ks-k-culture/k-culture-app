@@ -8,7 +8,7 @@ const TAB_BAR_HEIGHT = 70;
 const MENU_ITEMS = [
   { icon: "information-circle-outline", title: "토이드 가이드", route: "/guide" },
   { icon: "megaphone-outline", title: "공지사항", route: null },
-  { icon: "help-circle-outline", title: "자주묻는질문", route: null },
+  { icon: "help-circle-outline", title: "자주묻는질문", route: "/faq" },
   { icon: "chatbox-outline", title: "문의하기", route: "/inquiry" },
   { icon: "settings-outline", title: "설정", route: "/settings" },
 ];
