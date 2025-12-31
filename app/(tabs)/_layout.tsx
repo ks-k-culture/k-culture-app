@@ -1,35 +1,92 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { View } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { DrawerMenu } from "@/components/drawer-menu";
+import { HapticTab } from "@/components/haptic-tab";
+import { DrawerProvider, useDrawer } from "@/contexts/drawer-context";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+function TabLayoutContent() {
+  const { isOpen, closeDrawer } = useDrawer();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+    <View className="flex-1">
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "#A3E635",
+          tabBarInactiveTintColor: "#6B7280",
+          tabBarStyle: {
+            backgroundColor: "#000000",
+            borderTopColor: "#1F2937",
+            borderTopWidth: 1,
+            paddingTop: 8,
+            paddingBottom: 8,
+            height: 70,
+          },
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: "500",
+            marginTop: 4,
+          },
+          headerShown: false,
+          tabBarButton: HapticTab,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "홈",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? "home" : "home-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="connections"
+          options={{
+            title: "일촌",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? "people" : "people-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "프로필",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? "person" : "person-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="search"
+          options={{
+            title: "검색",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? "search" : "search-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="community"
+          options={{
+            title: "커뮤니티",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? "chatbubbles" : "chatbubbles-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+      <DrawerMenu visible={isOpen} onClose={closeDrawer} />
+    </View>
+  );
+}
+
+export default function TabLayout() {
+  return (
+    <DrawerProvider>
+      <TabLayoutContent />
+    </DrawerProvider>
   );
 }
