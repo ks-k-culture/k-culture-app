@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import { useRef, useState } from "react";
 import {
   Dimensions,
@@ -416,11 +417,11 @@ export default function HomeScreen() {
           <Text className="text-white text-2xl font-bold">K-Culture</Text>
 
           <View className="flex-row gap-2">
-            <Pressable className="p-2">
+            <Pressable className="p-2" onPress={() => router.push("/notifications")}>
               <Ionicons name="notifications-outline" size={24} color="white" />
             </Pressable>
-            <Pressable className="p-2">
-              <Ionicons name="settings-outline" size={24} color="white" />
+            <Pressable className="p-2" onPress={() => router.push("/messages")}>
+              <Ionicons name="chatbubble-ellipses-outline" size={24} color="white" />
             </Pressable>
           </View>
         </View>
