@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const MENU_ITEMS = [
   { icon: "information-circle-outline", title: "두드림 가이드", route: "/guide" },
-  { icon: "megaphone-outline", title: "공지사항", route: null },
+  { icon: "megaphone-outline", title: "공지사항", route: "/notices" },
   { icon: "help-circle-outline", title: "자주묻는질문", route: "/faq" },
   { icon: "chatbox-outline", title: "문의하기", route: "/inquiry" },
   { icon: "settings-outline", title: "설정", route: "/settings" },

@@ -58,6 +58,7 @@ export default function RootLayout() {
             <Stack.Screen name="community-settings" options={{ headerShown: false }} />
             <Stack.Screen name="community-messages" options={{ headerShown: false }} />
             <Stack.Screen name="community-search" options={{ headerShown: false }} />
+            <Stack.Screen name="notices" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
