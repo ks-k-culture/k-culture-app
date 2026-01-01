@@ -67,6 +67,13 @@ export default function RootLayout() {
             <Stack.Screen name="team-favorites" options={{ headerShown: false }} />
             <Stack.Screen name="team-search" options={{ headerShown: false }} />
             <Stack.Screen name="team-register" options={{ headerShown: false }} />
+            <Stack.Screen name="events" options={{ headerShown: false }} />
+            <Stack.Screen name="feedback" options={{ headerShown: false }} />
+            <Stack.Screen name="feedback-request" options={{ headerShown: false }} />
+            <Stack.Screen name="feedback-history" options={{ headerShown: false }} />
+            <Stack.Screen name="credits" options={{ headerShown: false }} />
+            <Stack.Screen name="jobs" options={{ headerShown: false }} />
+            <Stack.Screen name="job-create" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>

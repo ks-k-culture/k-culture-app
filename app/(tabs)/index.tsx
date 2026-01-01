@@ -32,9 +32,9 @@ const MENU_BUTTONS_ROW1 = [
 ];
 
 const MENU_BUTTONS_ROW2 = [
-  { id: "1", title: "이벤트", bgColor: "#3D3A1A", borderColor: "#6B6B3D" },
-  { id: "2", title: "피드백", bgColor: "#1A3D4D", borderColor: "#2D5A6B" },
-  { id: "3", title: "구인공고", bgColor: "#2A2A2A", borderColor: "#4A4A4A" },
+  { id: "1", title: "이벤트", bgColor: "#3D3A1A", borderColor: "#6B6B3D", route: "/events" },
+  { id: "2", title: "피드백", bgColor: "#1A3D4D", borderColor: "#2D5A6B", route: "/feedback" },
+  { id: "3", title: "구인공고", bgColor: "#2A2A2A", borderColor: "#4A4A4A", route: "/jobs" },
 ];
 
 const COMMUNITY_POSTS = [
@@ -483,6 +483,7 @@ export default function HomeScreen() {
               {MENU_BUTTONS_ROW2.map((button) => (
                 <Pressable
                   key={button.id}
+                  onPress={() => router.push(button.route as any)}
                   className="flex-1 rounded-lg py-3 items-center active:opacity-80"
                   style={{ backgroundColor: button.bgColor, borderWidth: 1, borderColor: button.borderColor }}
                 >
