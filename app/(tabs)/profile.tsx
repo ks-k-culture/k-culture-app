@@ -1,111 +1,148 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { useState } from "react";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const PORTFOLIO = [
-  { id: "1", title: "드라마 출연", image: "https://picsum.photos/200/300?random=201" },
-  { id: "2", title: "영화 조연", image: "https://picsum.photos/200/300?random=202" },
-  { id: "3", title: "뮤직비디오", image: "https://picsum.photos/200/300?random=203" },
-  { id: "4", title: "광고 촬영", image: "https://picsum.photos/200/300?random=204" },
+import { useShareSheet } from "@/contexts/share-sheet-context";
+
+const FILMOGRAPHY_CATEGORIES = [
+  { name: "장편영화", count: 0 },
+  { name: "단편영화", count: 0 },
+  { name: "드라마/OTT", count: 0 },
+  { name: "웹드라마", count: 0 },
+  { name: "숏폼 드라마", count: 0 },
+  { name: "방송", count: 0 },
+  { name: "M/V", count: 0 },
+  { name: "광고", count: 0 },
+  { name: "공연", count: 0 },
 ];
 
 export default function ProfileScreen() {
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const { openShareSheet } = useShareSheet();
+
   return (
     <View className="flex-1 bg-black">
-      <LinearGradient
-        colors={["#1a0a2e", "#0d0615", "#000000"]}
-        locations={[0, 0.3, 1]}
-        style={StyleSheet.absoluteFillObject}
-      />
-
-      <SafeAreaView className="flex-1" edges={["top"]}>
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <View className="items-center pt-6 pb-8">
-            <View className="w-24 h-24 rounded-full overflow-hidden border-4 border-purple-500 mb-4">
-              <Image
-                source={{ uri: "https://picsum.photos/200?random=300" }}
-                className="w-full h-full"
-                contentFit="cover"
-              />
-            </View>
-            <Text className="text-white text-2xl font-bold">홍길동</Text>
-            <Text className="text-purple-400 mt-1">배우 · 서울</Text>
-
-            <View className="flex-row mt-6 gap-8">
-              <View className="items-center">
-                <Text className="text-white text-xl font-bold">12</Text>
-                <Text className="text-gray-400 text-sm">작품</Text>
-              </View>
-              <View className="items-center">
-                <Text className="text-white text-xl font-bold">156</Text>
-                <Text className="text-gray-400 text-sm">일촌</Text>
-              </View>
-              <View className="items-center">
-                <Text className="text-white text-xl font-bold">89</Text>
-                <Text className="text-gray-400 text-sm">스크랩</Text>
-              </View>
-            </View>
-
-            <Pressable className="mt-6 bg-purple-600 px-8 py-3 rounded-xl">
-              <Text className="text-white font-semibold">프로필 편집</Text>
-            </Pressable>
-          </View>
-
-          <View className="px-6 mb-6">
-            <Text className="text-white font-bold text-lg mb-3">자기소개</Text>
-            <View className="bg-gray-900/50 rounded-xl p-4">
-              <Text className="text-gray-300 leading-6">
-                안녕하세요! 다양한 작품에 도전하고 싶은 배우 홍길동입니다. 드라마, 영화, 뮤직비디오 등 다양한 장르의
-                작품에 참여하고 있습니다.
-              </Text>
-            </View>
-          </View>
-
-          <View className="px-6 mb-6">
-            <View className="flex-row justify-between items-center mb-4">
-              <Text className="text-white font-bold text-lg">포트폴리오</Text>
-              <Pressable>
-                <Text className="text-purple-400 text-sm">전체보기</Text>
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        <LinearGradient
+          colors={["#4A1A6B", "#2D1B4E", "#1a0a2e", "#000000"]}
+          locations={[0, 0.3, 0.5, 0.7]}
+          style={{ paddingTop: 60, paddingBottom: 30 }}
+        >
+          <SafeAreaView edges={[]} className="px-6">
+            <View className="flex-row justify-end gap-4 mb-8">
+              <Pressable className="p-2" onPress={openShareSheet}>
+                <Ionicons name="share-outline" size={24} color="white" />
+              </Pressable>
+              <Pressable className="p-2" onPress={() => router.push("/edit-profile")}>
+                <Ionicons name="pencil" size={24} color="white" />
               </Pressable>
             </View>
 
-            <View className="flex-row flex-wrap justify-between">
-              {PORTFOLIO.map((item) => (
-                <Pressable key={item.id} className="w-[48%] mb-4">
-                  <View className="aspect-[3/4] rounded-xl overflow-hidden">
-                    <Image source={{ uri: item.image }} className="w-full h-full" contentFit="cover" />
-                  </View>
-                  <Text className="text-white text-sm mt-2">{item.title}</Text>
-                </Pressable>
-              ))}
+            <View className="items-center mb-6">
+              <View className="relative">
+                <Ionicons name="paper-plane" size={80} color="#9CA3AF" style={{ opacity: 0.6 }} />
+                <Ionicons
+                  name="airplane"
+                  size={60}
+                  color="#374151"
+                  style={{ position: "absolute", bottom: -10, right: -10, opacity: 0.4 }}
+                />
+              </View>
             </View>
+
+            <Pressable
+              onPress={() => router.push("/add-profile")}
+              className="self-start border border-dashed border-gray-400 rounded-full px-4 py-2 flex-row items-center mb-3"
+            >
+              <Text className="text-white text-sm mr-1">프로필 추가</Text>
+              <Text className="text-lg">🎬</Text>
+            </Pressable>
+
+            <View className="flex-row items-end justify-between">
+              <Text className="text-white text-3xl font-bold">김규민</Text>
+              <Text className="text-gray-400">@user7269</Text>
+            </View>
+          </SafeAreaView>
+        </LinearGradient>
+
+        <View className="px-6 -mt-2">
+          <View className="bg-gray-900 rounded-2xl p-5">
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-white text-base">일촌 0명</Text>
+              <Text className="text-green-400 font-semibold">프리</Text>
+            </View>
+
+            <Pressable
+              onPress={() => setIsIntroExpanded(!isIntroExpanded)}
+              className="flex-row items-center justify-between"
+            >
+              <Text className="text-gray-400">소개가 없습니다.</Text>
+              <Ionicons name={isIntroExpanded ? "chevron-up" : "chevron-down"} size={20} color="#6B7280" />
+            </Pressable>
+
+            {isIntroExpanded && (
+              <View className="mt-4 pt-4 border-t border-gray-800">
+                {FILMOGRAPHY_CATEGORIES.map((category) => (
+                  <View key={category.name} className="flex-row items-center justify-between py-2">
+                    <Text className="text-white">{category.name}</Text>
+                    <View className="flex-row items-center flex-1 mx-4">
+                      <View className="flex-1 h-2 bg-gray-800 rounded-full" />
+                    </View>
+                    <Text className="text-lime-400">{category.count}편</Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
 
-          <View className="px-6 mb-8">
-            <View className="bg-gray-900/50 rounded-xl overflow-hidden">
-              {[
-                { icon: "bookmark-outline", title: "스크랩" },
-                { icon: "document-text-outline", title: "내 게시글" },
-                { icon: "settings-outline", title: "설정" },
-                { icon: "help-circle-outline", title: "고객센터" },
-              ].map((item, index) => (
-                <Pressable
-                  key={item.title}
-                  className={`flex-row items-center p-4 ${index !== 3 ? "border-b border-gray-800" : ""}`}
-                >
-                  <Ionicons name={item.icon as any} size={22} color="#9CA3AF" />
-                  <Text className="text-white flex-1 ml-4">{item.title}</Text>
-                  <Ionicons name="chevron-forward" size={20} color="#6B7280" />
-                </Pressable>
-              ))}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-4"
+            contentContainerStyle={{ gap: 8 }}
+          >
+            <Pressable className="flex-row items-center bg-gray-900 rounded-full px-4 py-2">
+              <Text className="text-lg mr-2">😊</Text>
+              <Text className="text-white font-semibold">Lv.2</Text>
+            </Pressable>
+            <Pressable className="flex-row items-center bg-gray-900 rounded-full px-4 py-2">
+              <Ionicons name="flame" size={18} color="white" />
+              <Text className="text-white font-semibold ml-2">스파크</Text>
+            </Pressable>
+            <Pressable className="flex-row items-center bg-gray-900 rounded-full px-4 py-2">
+              <Ionicons name="document-text" size={18} color="white" />
+              <Text className="text-white font-semibold ml-2">작성한 글</Text>
+            </Pressable>
+            <Pressable className="flex-row items-center bg-gray-900 rounded-full px-4 py-2">
+              <Ionicons name="phone-portrait" size={18} color="white" />
+              <Text className="text-white font-semibold ml-2">방명록</Text>
+            </Pressable>
+          </ScrollView>
+
+          <View className="mt-6">
+            <View className="flex-row items-center justify-center mb-4">
+              <Ionicons name="options-outline" size={18} color="white" />
+              <Text className="text-white font-semibold ml-2">작품 전체(0)</Text>
+            </View>
+
+            <Pressable
+              onPress={() => router.push("/add-work")}
+              className="bg-gray-900 rounded-xl py-4 items-center mb-6"
+            >
+              <Ionicons name="add" size={24} color="#6B7280" />
+            </Pressable>
+
+            <View className="items-center py-8">
+              <Text className="text-gray-500">참여한 작품이 없습니다</Text>
             </View>
           </View>
 
           <View className="h-8" />
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </ScrollView>
     </View>
   );
 }

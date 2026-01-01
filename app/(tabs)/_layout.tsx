@@ -1,13 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { DrawerMenu } from "@/components/drawer-menu";
 import { HapticTab } from "@/components/haptic-tab";
+import { ShareSheet } from "@/components/share-sheet";
 import { DrawerProvider, useDrawer } from "@/contexts/drawer-context";
+import { ShareSheetProvider, useShareSheet } from "@/contexts/share-sheet-context";
 
 function TabLayoutContent() {
   const { isOpen, closeDrawer } = useDrawer();
+  const { isOpen: isShareSheetOpen, closeShareSheet } = useShareSheet();
+  const insets = useSafeAreaInsets();
 
   return (
     <View className="flex-1">
@@ -20,8 +25,8 @@ function TabLayoutContent() {
             borderTopColor: "#1F2937",
             borderTopWidth: 1,
             paddingTop: 8,
-            paddingBottom: 8,
-            height: 70,
+            paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
+            height: 56 + insets.bottom,
           },
           tabBarLabelStyle: {
             fontSize: 11,
@@ -79,6 +84,7 @@ function TabLayoutContent() {
         />
       </Tabs>
       <DrawerMenu visible={isOpen} onClose={closeDrawer} />
+      <ShareSheet visible={isShareSheetOpen} onClose={closeShareSheet} />
     </View>
   );
 }
@@ -86,7 +92,9 @@ function TabLayoutContent() {
 export default function TabLayout() {
   return (
     <DrawerProvider>
-      <TabLayoutContent />
+      <ShareSheetProvider>
+        <TabLayoutContent />
+      </ShareSheetProvider>
     </DrawerProvider>
   );
 }

@@ -1,108 +1,164 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const RECENT_SEARCHES = ["펜트하우스", "김민수", "드라마 오디션", "뮤직비디오"];
-
-const POPULAR_SEARCHES = [
-  { rank: 1, keyword: "넷플릭스 드라마" },
-  { rank: 2, keyword: "신인 배우" },
-  { rank: 3, keyword: "2024 영화" },
-  { rank: 4, keyword: "단편 영화" },
-  { rank: 5, keyword: "웹드라마" },
+const USERS_DATA = [
+  { id: "1", name: "박소영", username: "sjsy8356", image: null },
+  { id: "2", name: "박소영희", username: "soyoung123", image: null },
 ];
 
-const RECOMMENDED_CREATORS = [
-  { id: "1", name: "김민수", role: "배우", image: "https://picsum.photos/100?random=301" },
-  { id: "2", name: "이영희", role: "감독", image: "https://picsum.photos/100?random=302" },
-  { id: "3", name: "박철수", role: "작가", image: "https://picsum.photos/100?random=303" },
+const WORKS_DATA = [
+  {
+    id: "1",
+    title: "귀울음",
+    director: "박소영",
+    image: null,
+  },
+  {
+    id: "2",
+    title: "범죄도시",
+    director: "강윤성",
+    image:
+      "https://i.namu.wiki/i/lTypMqs0MnVWMJYTdQ53PB6TNdwc7IcIhY4Nc9SQwsMLZH7n1H9qiLYVT8p2c_qD60r4g-c3WgZOH20DGmjBhw.webp",
+  },
+  {
+    id: "3",
+    title: "범죄도시2",
+    director: "이상용",
+    image:
+      "https://i.namu.wiki/i/v00I9E5N5hwU-A2BtmWNMPxLxOG2pBtqh1kH53e6T7hVOK9Q-5iSPG4xMiRgGQUNy1lSNl4x5G3nXLZ9_hWAZg.webp",
+  },
+  {
+    id: "4",
+    title: "범죄도시3",
+    director: "이상용",
+    image:
+      "https://i.namu.wiki/i/0cN8tWHtlIR5dBQGHNcMI4ZGpUCwsijBdUP0QKdYejKCyJfcXFYiIZvqRlJJXlb_ZXMQNZ2eEz47SLwGg8r2Xw.webp",
+  },
+  {
+    id: "5",
+    title: "범죄도시4",
+    director: "허명행",
+    image:
+      "https://i.namu.wiki/i/W7nbrA5d6G8jLpB3XiNMJGvGmBZzjGM3U0w2lBfKcG8Y1L8p1lZfD8yKjKv2L8G8mT2kLhGq7R8bMnZ9_KKKKA.webp",
+  },
 ];
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const filteredUsers =
+    searchQuery.length > 0
+      ? USERS_DATA.filter(
+          (user) =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+
+  const filteredWorks =
+    searchQuery.length > 0
+      ? WORKS_DATA.filter(
+          (work) =>
+            work.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            work.director.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+
   return (
     <View className="flex-1 bg-black">
-      <LinearGradient
-        colors={["#1a0a2e", "#0d0615", "#000000"]}
-        locations={[0, 0.3, 1]}
-        style={StyleSheet.absoluteFillObject}
-      />
-
       <SafeAreaView className="flex-1" edges={["top"]}>
         <View className="px-6 py-4">
+          <Text className="text-white text-2xl font-bold mb-4">찾기</Text>
           <View className="flex-row items-center bg-gray-900 rounded-xl px-4 py-3">
             <Ionicons name="search" size={20} color="#9CA3AF" />
             <TextInput
               className="flex-1 text-white ml-3 text-base"
-              placeholder="배우, 작품, 팀을 검색하세요"
+              placeholder="이름(아이디) 또는 작품명 검색하기"
               placeholderTextColor="#6B7280"
               value={searchQuery}
               onChangeText={setSearchQuery}
             />
             {searchQuery.length > 0 && (
               <Pressable onPress={() => setSearchQuery("")}>
-                <Ionicons name="close-circle" size={20} color="#6B7280" />
+                <Ionicons name="close" size={20} color="#6B7280" />
               </Pressable>
             )}
           </View>
         </View>
 
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <View className="px-6 mb-6">
-            <View className="flex-row justify-between items-center mb-3">
-              <Text className="text-white font-bold text-lg">최근 검색어</Text>
-              <Pressable>
-                <Text className="text-gray-400 text-sm">전체 삭제</Text>
-              </Pressable>
-            </View>
-            <View className="flex-row flex-wrap gap-2">
-              {RECENT_SEARCHES.map((search, index) => (
-                <Pressable key={index} className="flex-row items-center bg-gray-800 rounded-full px-4 py-2">
-                  <Text className="text-gray-300 text-sm">{search}</Text>
-                  <Ionicons name="close" size={14} color="#9CA3AF" style={{ marginLeft: 8 }} />
-                </Pressable>
-              ))}
-            </View>
-          </View>
-
-          <View className="px-6 mb-6">
-            <Text className="text-white font-bold text-lg mb-3">인기 검색어</Text>
-            <View className="bg-gray-900/50 rounded-xl p-4">
-              {POPULAR_SEARCHES.map((item) => (
-                <Pressable key={item.rank} className="flex-row items-center py-2">
-                  <Text className={`w-6 font-bold ${item.rank <= 3 ? "text-purple-400" : "text-gray-500"}`}>
-                    {item.rank}
-                  </Text>
-                  <Text className="text-white ml-4">{item.keyword}</Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
-
-          <View className="px-6">
-            <Text className="text-white font-bold text-lg mb-4">추천 크리에이터</Text>
-            {RECOMMENDED_CREATORS.map((creator) => (
-              <Pressable key={creator.id} className="flex-row items-center bg-gray-900/30 rounded-xl p-4 mb-3">
-                <View className="w-14 h-14 rounded-full overflow-hidden">
-                  <Image source={{ uri: creator.image }} className="w-full h-full" contentFit="cover" />
+        {searchQuery.length === 0 ? (
+          <View className="flex-1 items-center justify-center px-6">
+            <View className="items-center mb-6">
+              <View className="relative">
+                <View className="w-24 h-24 bg-gray-600 rounded-full items-center justify-center">
+                  <Ionicons name="globe-outline" size={48} color="#9CA3AF" />
                 </View>
-                <View className="flex-1 ml-4">
-                  <Text className="text-white font-semibold">{creator.name}</Text>
-                  <Text className="text-gray-400 text-sm">{creator.role}</Text>
+                <View className="absolute -top-2 -left-2">
+                  <Ionicons name="person" size={32} color="#9CA3AF" />
                 </View>
-                <Pressable className="bg-purple-600 px-4 py-2 rounded-lg">
-                  <Text className="text-white text-sm font-semibold">프로필</Text>
-                </Pressable>
-              </Pressable>
-            ))}
+                <View className="absolute -top-4 right-0">
+                  <Ionicons name="search" size={24} color="#9CA3AF" />
+                </View>
+              </View>
+            </View>
+            <Text className="text-gray-500 text-base">아티스트와 작품 행성 찾아 떠나기</Text>
           </View>
+        ) : (
+          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+            {filteredUsers.length > 0 && (
+              <View className="px-6 mb-6">
+                <Text className="text-gray-400 text-sm mb-3">이용자</Text>
+                {filteredUsers.map((user) => (
+                  <Pressable key={user.id} className="flex-row items-center bg-gray-900/50 rounded-xl p-4 mb-2">
+                    <View className="w-14 h-14 bg-gray-700 rounded-full items-center justify-center">
+                      {user.image ? (
+                        <Image source={{ uri: user.image }} className="w-full h-full rounded-full" contentFit="cover" />
+                      ) : (
+                        <Ionicons name="person" size={28} color="#9CA3AF" />
+                      )}
+                    </View>
+                    <View className="ml-4">
+                      <Text className="text-white font-semibold">{user.name}</Text>
+                      <Text className="text-gray-400 text-sm">{user.username}</Text>
+                    </View>
+                  </Pressable>
+                ))}
+              </View>
+            )}
 
-          <View className="h-8" />
-        </ScrollView>
+            {filteredWorks.length > 0 && (
+              <View className="px-6">
+                <Text className="text-gray-400 text-sm mb-3">작품</Text>
+                {filteredWorks.map((work) => (
+                  <Pressable key={work.id} className="flex-row items-center bg-gray-900/50 rounded-xl p-4 mb-2">
+                    <View className="w-16 h-20 bg-white rounded overflow-hidden">
+                      {work.image ? (
+                        <Image source={{ uri: work.image }} className="w-full h-full" contentFit="cover" />
+                      ) : (
+                        <View className="w-full h-full bg-gray-200" />
+                      )}
+                    </View>
+                    <View className="ml-4 flex-1">
+                      <Text className="text-white font-semibold">{work.title}</Text>
+                      <Text className="text-gray-400 text-sm">감독: {work.director}</Text>
+                    </View>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+
+            {filteredUsers.length === 0 && filteredWorks.length === 0 && (
+              <View className="flex-1 items-center justify-center py-20">
+                <Text className="text-gray-500">검색 결과가 없습니다</Text>
+              </View>
+            )}
+
+            <View className="h-8" />
+          </ScrollView>
+        )}
       </SafeAreaView>
     </View>
   );

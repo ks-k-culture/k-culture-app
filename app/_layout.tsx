@@ -9,6 +9,7 @@ import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { SplashScreen } from "@/components/splash-screen";
+import { CommunityProvider } from "@/contexts/community-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 ExpoSplashScreen.preventAutoHideAsync();
@@ -36,21 +37,31 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          <Stack.Screen name="guide" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="notifications" options={{ headerShown: false }} />
-          <Stack.Screen name="messages" options={{ headerShown: false }} />
-          <Stack.Screen name="inquiry" options={{ headerShown: false }} />
-          <Stack.Screen name="settings" options={{ headerShown: false }} />
-          <Stack.Screen name="partner-connect" options={{ headerShown: false }} />
-          <Stack.Screen name="faq" options={{ headerShown: false }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <CommunityProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="guide" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="notifications" options={{ headerShown: false }} />
+            <Stack.Screen name="messages" options={{ headerShown: false }} />
+            <Stack.Screen name="inquiry" options={{ headerShown: false }} />
+            <Stack.Screen name="settings" options={{ headerShown: false }} />
+            <Stack.Screen name="partner-connect" options={{ headerShown: false }} />
+            <Stack.Screen name="faq" options={{ headerShown: false }} />
+            <Stack.Screen name="connection-requests" options={{ headerShown: false }} />
+            <Stack.Screen name="add-profile" options={{ headerShown: false }} />
+            <Stack.Screen name="add-work" options={{ headerShown: false }} />
+            <Stack.Screen name="edit-profile" options={{ headerShown: false }} />
+            <Stack.Screen name="community-board" options={{ headerShown: false }} />
+            <Stack.Screen name="community-settings" options={{ headerShown: false }} />
+            <Stack.Screen name="community-messages" options={{ headerShown: false }} />
+            <Stack.Screen name="community-search" options={{ headerShown: false }} />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </CommunityProvider>
     </SafeAreaProvider>
   );
 }

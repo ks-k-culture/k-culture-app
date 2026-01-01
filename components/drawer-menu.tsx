@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from "react-native-reanimated";
-
-const TAB_BAR_HEIGHT = 70;
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const MENU_ITEMS = [
-  { icon: "information-circle-outline", title: "토이드 가이드", route: "/guide" },
+  { icon: "information-circle-outline", title: "두드림 가이드", route: "/guide" },
   { icon: "megaphone-outline", title: "공지사항", route: null },
   { icon: "help-circle-outline", title: "자주묻는질문", route: "/faq" },
   { icon: "chatbox-outline", title: "문의하기", route: "/inquiry" },
@@ -19,6 +18,9 @@ interface DrawerMenuProps {
 }
 
 export function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
+  const insets = useSafeAreaInsets();
+  const TAB_BAR_HEIGHT = 56 + insets.bottom;
+
   if (!visible) return null;
 
   const handleMenuPress = (route: string | null) => {
@@ -34,12 +36,8 @@ export function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
   };
 
   return (
-    <View style={[StyleSheet.absoluteFillObject, { bottom: TAB_BAR_HEIGHT }]} className="z-50">
-      <Animated.View
-        entering={FadeIn.duration(200)}
-        exiting={FadeOut.duration(200)}
-        style={StyleSheet.absoluteFillObject}
-      >
+    <View className="absolute inset-0" style={{ bottom: TAB_BAR_HEIGHT }}>
+      <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} className="absolute inset-0">
         <Pressable onPress={onClose} className="flex-1 bg-black/70" />
       </Animated.View>
 
