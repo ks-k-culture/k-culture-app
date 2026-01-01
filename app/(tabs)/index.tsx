@@ -27,14 +27,14 @@ const BANNERS = [
 ];
 
 const MENU_BUTTONS_ROW1 = [
-  { id: "1", title: "배우 찾기", icon: "person-outline" as const },
-  { id: "2", title: "팀 찾기", icon: "people-outline" as const },
+  { id: "1", title: "배우 찾기" },
+  { id: "2", title: "팀 찾기" },
 ];
 
 const MENU_BUTTONS_ROW2 = [
-  { id: "1", title: "이벤트", icon: "calendar-outline" as const },
-  { id: "2", title: "피드백", icon: "chatbox-outline" as const },
-  { id: "3", title: "구인공고", icon: "briefcase-outline" as const },
+  { id: "1", title: "이벤트", bgColor: "#3D3A1A", borderColor: "#6B6B3D" },
+  { id: "2", title: "피드백", bgColor: "#1A3D4D", borderColor: "#2D5A6B" },
+  { id: "3", title: "구인공고", bgColor: "#2A2A2A", borderColor: "#4A4A4A" },
 ];
 
 const COMMUNITY_POSTS = [
@@ -438,14 +438,13 @@ export default function HomeScreen() {
               scrollEventThrottle={16}
               renderItem={({ item }) => (
                 <Pressable
-                  style={{ width: SCREEN_WIDTH - 48 }}
-                  className="h-32 rounded-2xl justify-center items-center px-6"
+                  style={{ width: SCREEN_WIDTH - 48, borderRadius: 12, overflow: "hidden" }}
+                  className="h-32 justify-center items-center px-6"
                   onPress={() => {}}
                 >
                   <LinearGradient
                     colors={[item.color, `${item.color}CC`]}
-                    className="absolute inset-0 rounded-2xl"
-                    style={StyleSheet.absoluteFillObject}
+                    style={{ ...StyleSheet.absoluteFillObject }}
                   />
                   <View className="flex-row items-center">
                     <Ionicons name="chatbubble" size={28} color="#3C1E1E" style={{ marginRight: 12 }} />
@@ -467,26 +466,26 @@ export default function HomeScreen() {
           </View>
 
           <View className="px-6 mt-6">
-            <View className="flex-row gap-3 mb-3">
+            <View className="flex-row gap-2 mb-2">
               {MENU_BUTTONS_ROW1.map((button) => (
                 <Pressable
                   key={button.id}
-                  className="flex-1 bg-teal-900/50 border border-teal-700 rounded-xl py-4 items-center active:opacity-80"
+                  className="flex-1 border border-gray-600 rounded-lg py-3 items-center active:opacity-80"
+                  style={{ backgroundColor: "#1A1A1A" }}
                 >
-                  <Ionicons name={button.icon} size={20} color="#5EEAD4" style={{ marginBottom: 4 }} />
-                  <Text className="text-teal-300 font-semibold">{button.title}</Text>
+                  <Text className="text-white font-medium">{button.title}</Text>
                 </Pressable>
               ))}
             </View>
 
-            <View className="flex-row gap-3">
+            <View className="flex-row gap-2">
               {MENU_BUTTONS_ROW2.map((button) => (
                 <Pressable
                   key={button.id}
-                  className="flex-1 bg-teal-900/50 border border-teal-700 rounded-xl py-4 items-center active:opacity-80"
+                  className="flex-1 rounded-lg py-3 items-center active:opacity-80"
+                  style={{ backgroundColor: button.bgColor, borderWidth: 1, borderColor: button.borderColor }}
                 >
-                  <Ionicons name={button.icon} size={18} color="#5EEAD4" style={{ marginBottom: 4 }} />
-                  <Text className="text-teal-300 font-semibold text-sm">{button.title}</Text>
+                  <Text className="text-white font-medium text-sm">{button.title}</Text>
                 </Pressable>
               ))}
             </View>
@@ -555,12 +554,17 @@ export default function HomeScreen() {
 
           <View className="px-6 mt-8">
             <Pressable className="rounded-2xl overflow-hidden">
-              <LinearGradient colors={["#8B5CF6", "#6366F1"]} className="p-5 flex-row items-center justify-between">
-                <View>
+              <LinearGradient
+                colors={["#8B5CF6", "#6366F1"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={{ padding: 20, flexDirection: "row", alignItems: "center" }}
+              >
+                <View className="flex-1">
                   <Text className="text-white font-bold text-lg">스파크로 작품 응원하기</Text>
                   <Text className="text-purple-200 text-sm mt-1">매일 새로운 작품을 발견하고 응원해보세요</Text>
                 </View>
-                <View className="bg-white/20 p-3 rounded-full">
+                <View className="bg-white/20 p-3 rounded-full ml-4">
                   <Ionicons name="arrow-forward" size={24} color="white" />
                 </View>
               </LinearGradient>
