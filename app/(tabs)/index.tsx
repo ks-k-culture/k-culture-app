@@ -553,7 +553,7 @@ export default function HomeScreen() {
           </View>
 
           <View className="px-6 mt-8">
-            <Pressable className="rounded-2xl overflow-hidden">
+            <Pressable onPress={() => router.push("/spark")} className="rounded-2xl overflow-hidden">
               <LinearGradient
                 colors={["#8B5CF6", "#6366F1"]}
                 start={{ x: 0, y: 0 }}

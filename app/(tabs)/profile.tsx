@@ -108,7 +108,10 @@ export default function ProfileScreen() {
               <Text className="text-lg mr-2">😊</Text>
               <Text className="text-white font-semibold">Lv.2</Text>
             </Pressable>
-            <Pressable className="flex-row items-center bg-gray-900 rounded-full px-4 py-2">
+            <Pressable
+              onPress={() => router.push("/spark")}
+              className="flex-row items-center bg-gray-900 rounded-full px-4 py-2"
+            >
               <Ionicons name="flame" size={18} color="white" />
               <Text className="text-white font-semibold ml-2">스파크</Text>
             </Pressable>
