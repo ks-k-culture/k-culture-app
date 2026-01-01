@@ -27,8 +27,8 @@ const BANNERS = [
 ];
 
 const MENU_BUTTONS_ROW1 = [
-  { id: "1", title: "배우 찾기" },
-  { id: "2", title: "팀 찾기" },
+  { id: "1", title: "배우 찾기", route: "/actor-profiles" },
+  { id: "2", title: "팀 찾기", route: "/team-profiles" },
 ];
 
 const MENU_BUTTONS_ROW2 = [
@@ -470,6 +470,7 @@ export default function HomeScreen() {
               {MENU_BUTTONS_ROW1.map((button) => (
                 <Pressable
                   key={button.id}
+                  onPress={() => router.push(button.route as any)}
                   className="flex-1 border border-gray-600 rounded-lg py-3 items-center active:opacity-80"
                   style={{ backgroundColor: "#1A1A1A" }}
                 >

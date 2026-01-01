@@ -61,6 +61,12 @@ export default function RootLayout() {
             <Stack.Screen name="notices" options={{ headerShown: false }} />
             <Stack.Screen name="spark" options={{ headerShown: false }} />
             <Stack.Screen name="spark-ranking" options={{ headerShown: false }} />
+            <Stack.Screen name="actor-profiles" options={{ headerShown: false }} />
+            <Stack.Screen name="actor-detail" options={{ headerShown: false }} />
+            <Stack.Screen name="team-profiles" options={{ headerShown: false }} />
+            <Stack.Screen name="team-favorites" options={{ headerShown: false }} />
+            <Stack.Screen name="team-search" options={{ headerShown: false }} />
+            <Stack.Screen name="team-register" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
