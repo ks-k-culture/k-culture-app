@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Text } from "@/components/ui/text";
 import { useCommunity } from "@/contexts/community-context";
 
 const BOARD_POSTS: Record<string, any[]> = {
@@ -64,8 +65,6 @@ export default function CommunityBoardScreen() {
   const handleWritePress = () => {
     if (!settings.isSetup) {
       router.push("/community-settings");
-    } else {
-      // TODO: 글쓰기 페이지로 이동
     }
   };
 

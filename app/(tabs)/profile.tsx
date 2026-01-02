@@ -2,22 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Text } from "@/components/ui/text";
+import { FILMOGRAPHY_CATEGORIES } from "@/constants/data";
 import { useShareSheet } from "@/contexts/share-sheet-context";
-
-const FILMOGRAPHY_CATEGORIES = [
-  { name: "장편영화", count: 0 },
-  { name: "단편영화", count: 0 },
-  { name: "드라마/OTT", count: 0 },
-  { name: "웹드라마", count: 0 },
-  { name: "숏폼 드라마", count: 0 },
-  { name: "방송", count: 0 },
-  { name: "M/V", count: 0 },
-  { name: "광고", count: 0 },
-  { name: "공연", count: 0 },
-];
 
 export default function ProfileScreen() {
   const [isIntroExpanded, setIsIntroExpanded] = useState(false);

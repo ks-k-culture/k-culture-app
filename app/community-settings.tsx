@@ -1,9 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Text } from "@/components/ui/text";
 import { useCommunity } from "@/contexts/community-context";
 
 const COLORS = ["#F472B6", "#FB923C", "#FBBF24", "#4ADE80", "#38BDF8", "#A78BFA", "#F0ABFC", "#1F2937", "#E5E7EB"];
@@ -51,11 +54,7 @@ export default function CommunitySettingsScreen() {
 
   const handleSave = () => {
     if (!agreed || !nickname || !selectedField) return;
-    updateSettings({
-      nickname,
-      color: selectedColor,
-      field: selectedField,
-    });
+    updateSettings({ nickname, color: selectedColor, field: selectedField });
     completeSetup();
     router.back();
   };
@@ -78,7 +77,7 @@ export default function CommunitySettingsScreen() {
         </View>
 
         <ScrollView className="flex-1 px-6" showsVerticalScrollIndicator={false}>
-          <View className="border border-purple-500/50 rounded-xl p-4 mb-4">
+          <Card variant="outlined" className="border-purple-500/50 mb-4">
             <View className="flex-row items-start">
               <View className="bg-orange-500 rounded-lg px-2 py-1 mr-3">
                 <Text className="text-white text-xs font-bold">안내</Text>
@@ -88,7 +87,7 @@ export default function CommunitySettingsScreen() {
                 <Text className="text-gray-300">기존 프로필과 별개의 닉네임을 사용합니다.</Text>
               </View>
             </View>
-          </View>
+          </Card>
 
           <Pressable
             onPress={() => setAgreed(!agreed)}
@@ -122,15 +121,11 @@ export default function CommunitySettingsScreen() {
           </View>
 
           <Text className="text-gray-400 mb-3">커뮤니티 닉네임</Text>
-          <View className="flex-row items-center bg-gray-900 rounded-xl px-4 py-4 mb-2">
-            <TextInput
-              className="flex-1 text-white text-base"
-              value={nickname}
-              onChangeText={setNickname}
-              placeholder="닉네임 입력"
-              placeholderTextColor="#6B7280"
-            />
-            <Pressable>
+          <View className="flex-row items-center mb-2">
+            <View className="flex-1">
+              <Input value={nickname} onChangeText={setNickname} placeholder="닉네임 입력" />
+            </View>
+            <Pressable className="ml-3">
               <Text className="text-purple-400">중복체크</Text>
             </Pressable>
           </View>

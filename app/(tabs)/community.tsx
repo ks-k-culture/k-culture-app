@@ -1,45 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const BOARDS = [
-  { id: "free", icon: "chatbox-outline", title: "자유 게시판" },
-  { id: "field", icon: "grid-outline", title: "현장 스토리" },
-  { id: "student", icon: "school-outline", title: "학생 게시판" },
-  { id: "question", icon: "help-circle-outline", title: "질문 게시판" },
-  { id: "report", icon: "megaphone-outline", title: "신문고 게시판" },
-  { id: "market", icon: "storefront-outline", title: "판매/나눔 게시판" },
-];
-
-const POSTS = [
-  {
-    id: "1",
-    author: "동동이",
-    role: "연출",
-    color: "#F472B6",
-    board: "자유 게시판",
-    title: "새해복 많이 받으세요~!",
-    content: "2026년도 무탈히 행복한 한해 되세요!",
-    likes: 2,
-    comments: 0,
-    time: "15시간 전",
-  },
-  {
-    id: "2",
-    author: "산책하는 코알라 362",
-    role: "조명",
-    color: "#FB923C",
-    board: "현장 스토리",
-    title: "나만아는실수",
-    content:
-      "팀 형들이랑 밥먹는데 점심 미리 먹었는데\n혼자만 먹었다고 뭐라할까봐 또 먹었어요;\n\n왜 실수냐.. 조명팀 단체활동 너무 심해서 실수로 생각 한번 해봤어용",
-    likes: 0,
-    comments: 0,
-    time: "1시간 전",
-  },
-];
+import { Text } from "@/components/ui/text";
+import { COMMUNITY_BOARD_LIST, COMMUNITY_POSTS_DETAIL } from "@/constants/data";
 
 export default function CommunityScreen() {
   const handleBoardPress = (boardId: string, boardTitle: string) => {
@@ -87,54 +53,20 @@ export default function CommunityScreen() {
           </View>
 
           <View className="px-6 mb-4 gap-2">
-            <View className="flex-row gap-2">
-              <Pressable
-                onPress={() => handleBoardPress("free", "자유 게시판")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="chatbox-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">자유 게시판</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => handleBoardPress("field", "현장 스토리")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="grid-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">현장 스토리</Text>
-              </Pressable>
-            </View>
-            <View className="flex-row gap-2">
-              <Pressable
-                onPress={() => handleBoardPress("student", "학생 게시판")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="school-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">학생 게시판</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => handleBoardPress("question", "질문 게시판")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="help-circle-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">질문 게시판</Text>
-              </Pressable>
-            </View>
-            <View className="flex-row gap-2">
-              <Pressable
-                onPress={() => handleBoardPress("report", "신문고 게시판")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="megaphone-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">신문고 게시판</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => handleBoardPress("market", "판매/나눔 게시판")}
-                className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
-              >
-                <Ionicons name="storefront-outline" size={20} color="#9CA3AF" />
-                <Text className="text-gray-300 ml-2">판매/나눔 게시판</Text>
-              </Pressable>
-            </View>
+            {[0, 2, 4].map((startIdx) => (
+              <View key={startIdx} className="flex-row gap-2">
+                {COMMUNITY_BOARD_LIST.slice(startIdx, startIdx + 2).map((board) => (
+                  <Pressable
+                    key={board.id}
+                    onPress={() => handleBoardPress(board.id, board.title)}
+                    className="flex-1 flex-row items-center border border-gray-700 rounded-xl px-4 py-3"
+                  >
+                    <Ionicons name={board.icon as any} size={20} color="#9CA3AF" />
+                    <Text className="text-gray-300 ml-2">{board.title}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            ))}
           </View>
 
           <Pressable className="mx-6 mb-4">
@@ -163,7 +95,7 @@ export default function CommunityScreen() {
           </Pressable>
 
           <View className="px-6">
-            {POSTS.map((post) => (
+            {COMMUNITY_POSTS_DETAIL.map((post) => (
               <View key={post.id} className="bg-gray-900/30 rounded-xl p-4 mb-4">
                 <View className="flex-row items-center justify-between mb-3">
                   <View className="flex-row items-center">

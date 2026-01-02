@@ -394,3 +394,91 @@ export const PROFILE_ROLES = [
   "스태프",
   "기타",
 ];
+
+export const FILMOGRAPHY_CATEGORIES = [
+  { name: "장편영화", count: 0 },
+  { name: "단편영화", count: 0 },
+  { name: "드라마/OTT", count: 0 },
+  { name: "웹드라마", count: 0 },
+  { name: "숏폼 드라마", count: 0 },
+  { name: "방송", count: 0 },
+  { name: "M/V", count: 0 },
+  { name: "광고", count: 0 },
+  { name: "공연", count: 0 },
+];
+
+export const SEARCH_USERS = [
+  { id: "1", name: "박소영", username: "sjsy8356", image: null },
+  { id: "2", name: "박소영희", username: "soyoung123", image: null },
+];
+
+export const SEARCH_WORKS = [
+  { id: "1", title: "귀울음", director: "박소영", image: null },
+  {
+    id: "2",
+    title: "범죄도시",
+    director: "강윤성",
+    image:
+      "https://i.namu.wiki/i/lTypMqs0MnVWMJYTdQ53PB6TNdwc7IcIhY4Nc9SQwsMLZH7n1H9qiLYVT8p2c_qD60r4g-c3WgZOH20DGmjBhw.webp",
+  },
+  {
+    id: "3",
+    title: "범죄도시2",
+    director: "이상용",
+    image:
+      "https://i.namu.wiki/i/v00I9E5N5hwU-A2BtmWNMPxLxOG2pBtqh1kH53e6T7hVOK9Q-5iSPG4xMiRgGQUNy1lSNl4x5G3nXLZ9_hWAZg.webp",
+  },
+  {
+    id: "4",
+    title: "범죄도시3",
+    director: "이상용",
+    image:
+      "https://i.namu.wiki/i/0cN8tWHtlIR5dBQGHNcMI4ZGpUCwsijBdUP0QKdYejKCyJfcXFYiIZvqRlJJXlb_ZXMQNZ2eEz47SLwGg8r2Xw.webp",
+  },
+  {
+    id: "5",
+    title: "범죄도시4",
+    director: "허명행",
+    image:
+      "https://i.namu.wiki/i/W7nbrA5d6G8jLpB3XiNMJGvGmBZzjGM3U0w2lBfKcG8Y1L8p1lZfD8yKjKv2L8G8mT2kLhGq7R8bMnZ9_KKKKA.webp",
+  },
+];
+
+export const COMMUNITY_BOARD_LIST = [
+  { id: "free", icon: "chatbox-outline", title: "자유 게시판" },
+  { id: "field", icon: "grid-outline", title: "현장 스토리" },
+  { id: "student", icon: "school-outline", title: "학생 게시판" },
+  { id: "question", icon: "help-circle-outline", title: "질문 게시판" },
+  { id: "report", icon: "megaphone-outline", title: "신문고 게시판" },
+  { id: "market", icon: "storefront-outline", title: "판매/나눔 게시판" },
+];
+
+export const COMMUNITY_POSTS_DETAIL = [
+  {
+    id: "1",
+    author: "동동이",
+    role: "연출",
+    color: "#F472B6",
+    board: "자유 게시판",
+    title: "새해복 많이 받으세요~!",
+    content: "2026년도 무탈히 행복한 한해 되세요!",
+    likes: 2,
+    comments: 0,
+    time: "15시간 전",
+  },
+  {
+    id: "2",
+    author: "산책하는 코알라 362",
+    role: "조명",
+    color: "#FB923C",
+    board: "현장 스토리",
+    title: "나만아는실수",
+    content:
+      "팀 형들이랑 밥먹는데 점심 미리 먹었는데\n혼자만 먹었다고 뭐라할까봐 또 먹었어요;\n\n왜 실수냐.. 조명팀 단체활동 너무 심해서 실수로 생각 한번 해봤어용",
+    likes: 0,
+    comments: 0,
+    time: "1시간 전",
+  },
+];
+
+export const PARTNERS = ["두드림 공식 파트너"];

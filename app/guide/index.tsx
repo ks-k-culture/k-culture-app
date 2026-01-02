@@ -10,7 +10,7 @@ const { width } = Dimensions.get("window");
 interface GuideSlide {
   id: string;
   icon: keyof typeof Ionicons.glyphMap;
-  iconBgColor: string[];
+  iconBgColor: readonly [string, string, ...string[]];
   title: string;
   description: string;
   isLast?: boolean;
@@ -20,35 +20,35 @@ const GUIDE_SLIDES: GuideSlide[] = [
   {
     id: "1",
     icon: "planet",
-    iconBgColor: ["#8B5CF6", "#6D28D9"],
+    iconBgColor: ["#8B5CF6", "#6D28D9"] as const,
     title: "K-Culture 플랫폼",
     description: "한류 문화의 모든 것을 연결하는 플랫폼입니다.",
   },
   {
     id: "2",
     icon: "checkmark-circle",
-    iconBgColor: ["#A855F7", "#7C3AED"],
+    iconBgColor: ["#A855F7", "#7C3AED"] as const,
     title: "크레딧 인증",
     description: "내가 참여한 작품의 크레딧 인증을 받아보세요.",
   },
   {
     id: "3",
     icon: "people",
-    iconBgColor: ["#F59E0B", "#D97706"],
+    iconBgColor: ["#F59E0B", "#D97706"] as const,
     title: "직접적인 네트워킹",
     description: "작품에 참여한 사람들과 네트워킹을 해보세요.",
   },
   {
     id: "4",
     icon: "person-circle",
-    iconBgColor: ["#6366F1", "#4F46E5"],
+    iconBgColor: ["#6366F1", "#4F46E5"] as const,
     title: "프로필 연동",
     description: "배우&모델 온라인 프로필을 연동해 보세요.",
   },
   {
     id: "5",
     icon: "rocket",
-    iconBgColor: ["#8B5CF6", "#6D28D9"],
+    iconBgColor: ["#8B5CF6", "#6D28D9"] as const,
     title: "지금 바로 시작하세요!",
     description: "K-Culture와 함께 새로운 경험을 시작해보세요.",
     isLast: true,
