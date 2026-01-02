@@ -47,10 +47,7 @@ export default function FeedbackScreen() {
           {/* 내가 요청한 피드백 */}
           <View className="flex-row items-center justify-between mb-4">
             <Text className="text-white text-lg font-bold">내가 요청한 피드백</Text>
-            <Pressable
-              onPress={() => router.push("/feedback-request")}
-              className="flex-row items-center"
-            >
+            <Pressable onPress={() => router.push("/feedback-request")} className="flex-row items-center">
               <Text className="text-gray-400">피드백 요청</Text>
               <Ionicons name="chevron-forward" size={16} color="#9CA3AF" />
             </Pressable>
@@ -89,19 +86,9 @@ export default function FeedbackScreen() {
 
           {/* 통계 카드 */}
           <View className="bg-[#1A1A1A] rounded-xl flex-row mb-6">
-            <StatCard
-              label="연기 피드백 수"
-              value={0}
-              unit="건"
-              onPress={() => router.push("/feedback-history")}
-            />
+            <StatCard label="연기 피드백 수" value={0} unit="건" onPress={() => router.push("/feedback-history")} />
             <View className="w-px bg-gray-700" />
-            <StatCard
-              label="작품 피드백 수"
-              value={0}
-              unit="건"
-              onPress={() => router.push("/feedback-history")}
-            />
+            <StatCard label="작품 피드백 수" value={0} unit="건" onPress={() => router.push("/feedback-history")} />
             <View className="w-px bg-gray-700" />
             <StatCard label="나의 크레딧" value={0} onPress={() => router.push("/credits")} />
           </View>
@@ -132,4 +119,3 @@ export default function FeedbackScreen() {
     </View>
   );
 }
-

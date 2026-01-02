@@ -1,6 +1,7 @@
 import "../global.css";
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { PortalHost } from "@rn-primitives/portal";
 import { Stack } from "expo-router";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -76,6 +77,7 @@ export default function RootLayout() {
             <Stack.Screen name="job-create" options={{ headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />
+          <PortalHost />
         </ThemeProvider>
       </CommunityProvider>
     </SafeAreaProvider>

@@ -100,9 +100,7 @@ export default function FeedbackRequestScreen() {
             className="rounded-xl py-4 items-center mb-8"
             style={{ backgroundColor: isValid ? "#8B5CF6" : "#4B5563" }}
           >
-            <Text className={isValid ? "text-white font-bold text-lg" : "text-gray-400 font-bold text-lg"}>
-              다음
-            </Text>
+            <Text className={isValid ? "text-white font-bold text-lg" : "text-gray-400 font-bold text-lg"}>다음</Text>
           </Pressable>
 
           <View className="h-8" />
@@ -111,4 +109,3 @@ export default function FeedbackRequestScreen() {
     </View>
   );
 }
-

@@ -15,7 +15,16 @@ interface FormFieldProps {
   hasSearch?: boolean;
 }
 
-function FormField({ label, placeholder, value, onChangeText, hint, multiline, isDropdown, hasSearch }: FormFieldProps) {
+function FormField({
+  label,
+  placeholder,
+  value,
+  onChangeText,
+  hint,
+  multiline,
+  isDropdown,
+  hasSearch,
+}: FormFieldProps) {
   return (
     <View className="flex-row mb-6">
       <Text className="text-gray-400 w-20 pt-4">{label}</Text>
@@ -166,9 +175,7 @@ export default function TeamRegisterScreen() {
           </View>
 
           {/* 경고 문구 */}
-          <Text className="text-gray-500 text-center mb-6">
-            거짓된 정보를 기입할 경우 사용에 제한될 수 있습니다.
-          </Text>
+          <Text className="text-gray-500 text-center mb-6">거짓된 정보를 기입할 경우 사용에 제한될 수 있습니다.</Text>
 
           {/* 등록하기 버튼 */}
           <Pressable className="bg-purple-600 rounded-xl py-4 items-center mb-8">
@@ -181,4 +188,3 @@ export default function TeamRegisterScreen() {
     </View>
   );
 }
-

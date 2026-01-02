@@ -116,14 +116,13 @@ export default function GuideScreen() {
 
         {currentIndex === GUIDE_SLIDES.length - 1 ? (
           <Pressable onPress={handleStart}>
-            <LinearGradient
-              colors={["#6366F1", "#06B6D4"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              className="py-4 rounded-xl items-center"
-            >
-              <Text className="text-white text-base font-semibold">시작하기</Text>
-            </LinearGradient>
+            <View className="rounded-2xl overflow-hidden">
+              <LinearGradient colors={["#8B5CF6", "#06B6D4"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                <View className="py-[18px] items-center justify-center">
+                  <Text className="text-white text-base font-semibold">시작하기</Text>
+                </View>
+              </LinearGradient>
+            </View>
           </Pressable>
         ) : (
           <View className="h-14" />

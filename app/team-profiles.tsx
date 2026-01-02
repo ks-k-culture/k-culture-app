@@ -68,10 +68,31 @@ const POST_PRODUCTION_CATEGORIES: Category[] = [
 ];
 
 const TEAMS: Team[] = [
-  { id: "1", name: "국민커피차더자유", category: "커피차", image: "https://picsum.photos/100?random=301", hasPhone: true, hasEmail: true },
-  { id: "2", name: "나이스츄미츄", category: "간식차, 커피차", image: "https://picsum.photos/100?random=302", hasPhone: true, hasEmail: true },
+  {
+    id: "1",
+    name: "국민커피차더자유",
+    category: "커피차",
+    image: "https://picsum.photos/100?random=301",
+    hasPhone: true,
+    hasEmail: true,
+  },
+  {
+    id: "2",
+    name: "나이스츄미츄",
+    category: "간식차, 커피차",
+    image: "https://picsum.photos/100?random=302",
+    hasPhone: true,
+    hasEmail: true,
+  },
   { id: "3", name: "데일리 퀘스트", category: "데이터(DIT)", hasPhone: true, hasEmail: true },
-  { id: "4", name: "서울액션스쿨", category: "무술/스턴트", image: "https://picsum.photos/100?random=304", hasPhone: true, hasEmail: true },
+  {
+    id: "4",
+    name: "서울액션스쿨",
+    category: "무술/스턴트",
+    image: "https://picsum.photos/100?random=304",
+    hasPhone: true,
+    hasEmail: true,
+  },
   { id: "5", name: "128컴퍼니", category: "의상/소품", hasPhone: true, hasEmail: true, worksCount: 14 },
   { id: "6", name: "그립아일랜드", category: "그립", hasPhone: true, hasEmail: true },
   { id: "7", name: "(주) 에임허브", category: "데이터(DIT)", hasPhone: true, hasEmail: true, worksCount: 1 },
@@ -126,9 +147,12 @@ export default function TeamProfilesScreen() {
   const [activeTab, setActiveTab] = useState<TabType>("production");
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const categories = activeTab === "production" 
-    ? (isExpanded ? [...PRODUCTION_CATEGORIES, ...PRODUCTION_CATEGORIES_EXPANDED] : PRODUCTION_CATEGORIES)
-    : POST_PRODUCTION_CATEGORIES;
+  const categories =
+    activeTab === "production"
+      ? isExpanded
+        ? [...PRODUCTION_CATEGORIES, ...PRODUCTION_CATEGORIES_EXPANDED]
+        : PRODUCTION_CATEGORIES
+      : POST_PRODUCTION_CATEGORIES;
 
   return (
     <View className="flex-1 bg-black">
@@ -230,4 +254,3 @@ export default function TeamProfilesScreen() {
     </View>
   );
 }
-
