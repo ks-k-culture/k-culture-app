@@ -69,7 +69,7 @@ export default function LoginScreen() {
         locations={[0, 0.3, 0.6, 1]}
         style={StyleSheet.absoluteFillObject}
       />
-      <StatusBar style="light" />
+        <StatusBar style="light" />
 
       <SafeAreaView className="flex-1" edges={["top", "bottom"]}>
         <View className="flex-1 items-center justify-center px-8">

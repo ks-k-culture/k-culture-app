@@ -16,8 +16,8 @@ function TabLayoutContent() {
 
   return (
     <View className="flex-1">
-      <Tabs
-        screenOptions={{
+    <Tabs
+      screenOptions={{
           tabBarActiveTintColor: "#A3E635",
           tabBarInactiveTintColor: "#6B7280",
           tabBarStyle: {
@@ -33,13 +33,13 @@ function TabLayoutContent() {
             fontWeight: "500",
             marginTop: 4,
           },
-          headerShown: false,
-          tabBarButton: HapticTab,
+        headerShown: false,
+        tabBarButton: HapticTab,
         }}
       >
-        <Tabs.Screen
-          name="index"
-          options={{
+      <Tabs.Screen
+        name="index"
+        options={{
             title: "홈",
             tabBarIcon: ({ color, focused }) => (
               <Ionicons name={focused ? "home" : "home-outline"} size={24} color={color} />
@@ -71,18 +71,18 @@ function TabLayoutContent() {
             tabBarIcon: ({ color, focused }) => (
               <Ionicons name={focused ? "search" : "search-outline"} size={24} color={color} />
             ),
-          }}
-        />
-        <Tabs.Screen
+        }}
+      />
+      <Tabs.Screen
           name="community"
-          options={{
+        options={{
             title: "커뮤니티",
             tabBarIcon: ({ color, focused }) => (
               <Ionicons name={focused ? "chatbubbles" : "chatbubbles-outline"} size={24} color={color} />
             ),
-          }}
-        />
-      </Tabs>
+        }}
+      />
+    </Tabs>
       <DrawerMenu visible={isOpen} onClose={closeDrawer} />
       <ShareSheet visible={isShareSheetOpen} onClose={closeShareSheet} />
     </View>
