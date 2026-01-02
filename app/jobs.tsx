@@ -1,8 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Pressable, ScrollView, View } from "react-native";
+
+import { Header } from "@/components/layout/header";
+import { ScreenWrapper } from "@/components/layout/screen-wrapper";
+import { Badge } from "@/components/ui/badge";
+import { Text } from "@/components/ui/text";
 
 type TabType = "my" | "applied";
 
@@ -96,9 +100,9 @@ function JobCard({ job }: { job: Job }) {
   return (
     <View className="py-4 border-b border-gray-800">
       <View className="flex-row items-center mb-2">
-        <View className="border border-gray-600 rounded-full px-3 py-1 mr-2">
+        <Badge variant="outline" className="rounded-full px-3 py-1 mr-2">
           <Text className="text-gray-400 text-sm">{job.category}</Text>
-        </View>
+        </Badge>
         <View className="rounded-full px-3 py-1" style={{ borderWidth: 1, borderColor: job.genreColor }}>
           <Text className="text-sm" style={{ color: job.genreColor }}>
             {job.genre}
@@ -107,7 +111,7 @@ function JobCard({ job }: { job: Job }) {
       </View>
 
       <View className="flex-row items-start justify-between">
-        <Text className="text-white flex-1 mr-4" numberOfLines={2}>
+        <Text className="flex-1 mr-4" numberOfLines={2}>
           {job.title}
         </Text>
         {job.daysLeft !== undefined ? (
@@ -129,14 +133,10 @@ export default function JobsScreen() {
   const [activeTab, setActiveTab] = useState<TabType>("my");
 
   return (
-    <View className="flex-1 bg-black">
-      <SafeAreaView className="flex-1" edges={["top"]}>
-        {/* 헤더 */}
-        <View className="flex-row items-center justify-between px-4 py-4">
-          <Pressable onPress={() => router.back()} className="p-2 -ml-2">
-            <Ionicons name="arrow-back" size={24} color="white" />
-          </Pressable>
-          <Text className="text-white text-lg font-bold">구인공고</Text>
+    <ScreenWrapper>
+      <Header
+        title="구인공고"
+        rightComponent={
           <View className="flex-row items-center">
             <Pressable onPress={() => router.push("/job-create")} className="p-2">
               <Ionicons name="create-outline" size={24} color="white" />
@@ -145,63 +145,58 @@ export default function JobsScreen() {
               <Ionicons name="search-outline" size={24} color="white" />
             </Pressable>
           </View>
+        }
+      />
+
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        <View className="flex-row px-4 mb-4">
+          <Pressable onPress={() => setActiveTab("my")} className="mr-6">
+            <Text className={activeTab === "my" ? "font-bold text-base" : "text-gray-500 text-base"}>
+              내가 올린 공고
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => setActiveTab("applied")}>
+            <Text className={activeTab === "applied" ? "font-bold text-base" : "text-gray-500 text-base"}>
+              지원한 공고
+            </Text>
+          </Pressable>
         </View>
 
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          {/* 탭 */}
-          <View className="flex-row px-4 mb-4">
-            <Pressable onPress={() => setActiveTab("my")} className="mr-6">
-              <Text className={activeTab === "my" ? "text-white font-bold text-base" : "text-gray-500 text-base"}>
-                내가 올린 공고
-              </Text>
-            </Pressable>
-            <Pressable onPress={() => setActiveTab("applied")}>
-              <Text className={activeTab === "applied" ? "text-white font-bold text-base" : "text-gray-500 text-base"}>
-                지원한 공고
-              </Text>
-            </Pressable>
-          </View>
+        <View className="mx-4 border border-dashed border-gray-600 rounded-xl py-16 items-center mb-4">
+          <Text className="text-gray-500">
+            {activeTab === "my" ? "아직 올린 공고가 없어요." : "아직 지원한 공고가 없어요."}
+          </Text>
+        </View>
 
-          {/* 빈 상태 카드 */}
-          <View className="mx-4 border border-dashed border-gray-600 rounded-xl py-16 items-center mb-4">
-            <Text className="text-gray-500">
-              {activeTab === "my" ? "아직 올린 공고가 없어요." : "아직 지원한 공고가 없어요."}
-            </Text>
-          </View>
-
-          {/* 배너 */}
-          <Pressable className="mx-4 mb-4">
-            <View className="bg-purple-600 rounded-xl px-5 py-4 flex-row items-center justify-between">
-              <Text className="text-white font-bold">인증된 스태프·배우를 구인해보세요!</Text>
-              <View className="flex-row items-center">
-                <Text className="text-purple-200 mr-1">사용법</Text>
-                <Ionicons name="chevron-forward" size={16} color="#E9D5FF" />
-              </View>
+        <Pressable className="mx-4 mb-4">
+          <View className="bg-purple-600 rounded-xl px-5 py-4 flex-row items-center justify-between">
+            <Text className="font-bold">인증된 스태프·배우를 구인해보세요!</Text>
+            <View className="flex-row items-center">
+              <Text className="text-purple-200 mr-1">사용법</Text>
+              <Ionicons name="chevron-forward" size={16} color="#E9D5FF" />
             </View>
+          </View>
+        </Pressable>
+
+        <View className="flex-row px-4 mb-4">
+          <Pressable className="border border-gray-600 rounded-full px-4 py-2 mr-3 flex-row items-center">
+            <Text className="text-gray-300">배우&스태프</Text>
+            <Ionicons name="chevron-down" size={16} color="#9CA3AF" style={{ marginLeft: 4 }} />
           </Pressable>
+          <Pressable className="border border-gray-600 rounded-full px-4 py-2 flex-row items-center">
+            <Text className="text-gray-300">분야 전체</Text>
+            <Ionicons name="chevron-down" size={16} color="#9CA3AF" style={{ marginLeft: 4 }} />
+          </Pressable>
+        </View>
 
-          {/* 필터 */}
-          <View className="flex-row px-4 mb-4">
-            <Pressable className="border border-gray-600 rounded-full px-4 py-2 mr-3 flex-row items-center">
-              <Text className="text-gray-300">배우&스태프</Text>
-              <Ionicons name="chevron-down" size={16} color="#9CA3AF" style={{ marginLeft: 4 }} />
-            </Pressable>
-            <Pressable className="border border-gray-600 rounded-full px-4 py-2 flex-row items-center">
-              <Text className="text-gray-300">분야 전체</Text>
-              <Ionicons name="chevron-down" size={16} color="#9CA3AF" style={{ marginLeft: 4 }} />
-            </Pressable>
-          </View>
+        <View className="px-4">
+          {JOBS.map((job) => (
+            <JobCard key={job.id} job={job} />
+          ))}
+        </View>
 
-          {/* 구인 목록 */}
-          <View className="px-4">
-            {JOBS.map((job) => (
-              <JobCard key={job.id} job={job} />
-            ))}
-          </View>
-
-          <View className="h-8" />
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+        <View className="h-8" />
+      </ScrollView>
+    </ScreenWrapper>
   );
 }

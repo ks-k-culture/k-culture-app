@@ -2,9 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from "react-native-reanimated";
-import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Header } from "@/components/layout/header";
+import { ScreenWrapper } from "@/components/layout/screen-wrapper";
+import { Text } from "@/components/ui/text";
 
 type Gender = "전체" | "남자" | "여자";
 type SortOption = "추천순" | "등록순" | "인기순" | "나이순(오름차순)" | "나이순(내림차순)";
@@ -132,50 +135,41 @@ function StatBar({ value, max, color }: { value: number; max: number; color: str
 
 function ActorCard({ actor }: { actor: Actor }) {
   const handlePress = () => {
-    router.push({
-      pathname: "/actor-detail",
-      params: { id: actor.id, name: actor.name },
-    });
+    router.push({ pathname: "/actor-detail", params: { id: actor.id, name: actor.name } });
   };
 
   return (
     <Pressable onPress={handlePress} className="w-[31%] mb-4">
       <View className="relative rounded-xl overflow-hidden" style={{ aspectRatio: 3 / 4 }}>
         <Image source={{ uri: actor.image }} className="w-full h-full" contentFit="cover" />
-
         {actor.isNew && (
           <View className="absolute top-2 left-2 bg-red-500 px-2 py-0.5 rounded">
-            <Text className="text-white text-xs font-bold">NEW</Text>
+            <Text className="text-xs font-bold">NEW</Text>
           </View>
         )}
-
         {actor.isVerified && (
           <View className="absolute top-2 right-2">
             <Ionicons name="checkmark-circle" size={20} color="#A78BFA" />
           </View>
         )}
-
         <View className="absolute bottom-2 left-2 flex-row items-center bg-black/60 px-2 py-1 rounded-full">
           <Ionicons name="thumbs-up" size={12} color="white" />
-          <Text className="text-white text-xs ml-1">{actor.likes}</Text>
+          <Text className="text-xs ml-1">{actor.likes}</Text>
         </View>
       </View>
 
       <View className="mt-2">
         <View className="flex-row items-center justify-between">
-          <Text className="text-white font-semibold">{actor.name}</Text>
+          <Text className="font-semibold">{actor.name}</Text>
           <View
             className="px-2 py-0.5 rounded border"
-            style={{
-              borderColor: actor.gender === "남자" ? "#6B7280" : "#EC4899",
-            }}
+            style={{ borderColor: actor.gender === "남자" ? "#6B7280" : "#EC4899" }}
           >
             <Text className="text-xs" style={{ color: actor.gender === "남자" ? "#9CA3AF" : "#F472B6" }}>
               {actor.gender}
             </Text>
           </View>
         </View>
-
         <View className="mt-1.5 gap-1">
           <View className="flex-row items-center">
             <Text className="text-gray-400 text-xs w-12">{actor.age}세</Text>
@@ -232,13 +226,9 @@ function FilterPanel({
               key={g}
               onPress={() => setGender(g)}
               className="px-4 py-2 rounded-lg"
-              style={{
-                backgroundColor: gender === g ? "transparent" : "transparent",
-                borderWidth: 1,
-                borderColor: gender === g ? "white" : "#4B5563",
-              }}
+              style={{ borderWidth: 1, borderColor: gender === g ? "white" : "#4B5563" }}
             >
-              <Text className={gender === g ? "text-white font-semibold" : "text-gray-400"}>{g}</Text>
+              <Text className={gender === g ? "font-semibold" : "text-gray-400"}>{g}</Text>
             </Pressable>
           ))}
         </View>
@@ -250,31 +240,23 @@ function FilterPanel({
 
       <View className="gap-4">
         <View className="flex-row items-center">
-          <Text className="text-white w-16">나이</Text>
+          <Text className="w-16">나이</Text>
           <View className="flex-1 h-1 bg-gray-600 rounded-full mx-3">
             <View className="absolute left-[10%] right-[10%] h-full bg-white rounded-full" />
-            <View className="absolute left-[10%] w-4 h-4 bg-white rounded-full -top-1.5" />
-            <View className="absolute right-[10%] w-4 h-4 bg-white rounded-full -top-1.5" />
           </View>
           <Text className="text-gray-400 w-20 text-right">0 ~ 90 세</Text>
         </View>
-
         <View className="flex-row items-center">
-          <Text className="text-white w-16">키</Text>
+          <Text className="w-16">키</Text>
           <View className="flex-1 h-1 bg-gray-600 rounded-full mx-3">
             <View className="absolute left-[5%] right-[5%] h-full bg-white rounded-full" />
-            <View className="absolute left-[5%] w-4 h-4 bg-white rounded-full -top-1.5" />
-            <View className="absolute right-[5%] w-4 h-4 bg-white rounded-full -top-1.5" />
           </View>
           <Text className="text-gray-400 w-20 text-right">130 ~ 200 cm</Text>
         </View>
-
         <View className="flex-row items-center">
-          <Text className="text-white w-16">몸무게</Text>
+          <Text className="w-16">몸무게</Text>
           <View className="flex-1 h-1 bg-gray-600 rounded-full mx-3">
             <View className="absolute left-[15%] right-[5%] h-full bg-white rounded-full" />
-            <View className="absolute left-[15%] w-4 h-4 bg-white rounded-full -top-1.5" />
-            <View className="absolute right-[5%] w-4 h-4 bg-white rounded-full -top-1.5" />
           </View>
           <Text className="text-gray-400 w-20 text-right">30 ~ 100 kg</Text>
         </View>
@@ -348,56 +330,39 @@ export default function ActorProfilesScreen() {
   });
 
   return (
-    <View className="flex-1 bg-black">
-      <SafeAreaView className="flex-1" edges={["top"]}>
-        {/* 헤더 */}
-        <View className="flex-row items-center justify-center px-4 py-4">
-          <Pressable onPress={() => router.back()} className="absolute left-4 p-2">
-            <Ionicons name="chevron-back" size={24} color="white" />
-          </Pressable>
-          <Text className="text-white text-lg font-bold">배우 프로필</Text>
+    <ScreenWrapper>
+      <Header title="배우 프로필" />
+
+      <View className="flex-row items-center justify-between px-4 py-3">
+        <Pressable onPress={() => setShowFilter(!showFilter)} className="flex-row items-center">
+          <Ionicons name="filter" size={18} color="white" />
+          <Text className="ml-2">필터</Text>
+        </Pressable>
+        <Pressable onPress={() => setShowSortModal(true)} className="flex-row items-center">
+          <Ionicons name="swap-vertical" size={18} color="white" />
+          <Text className="ml-2">{sortOption}</Text>
+        </Pressable>
+      </View>
+
+      {showFilter && (
+        <FilterPanel visible={showFilter} onClose={() => setShowFilter(false)} gender={gender} setGender={setGender} />
+      )}
+
+      <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
+        <View className="flex-row flex-wrap justify-between pt-4">
+          {filteredActors.map((actor) => (
+            <ActorCard key={actor.id} actor={actor} />
+          ))}
         </View>
+        <View className="h-8" />
+      </ScrollView>
 
-        {/* 필터/정렬 바 */}
-        <View className="flex-row items-center justify-between px-4 py-3">
-          <Pressable onPress={() => setShowFilter(!showFilter)} className="flex-row items-center">
-            <Ionicons name="filter" size={18} color="white" />
-            <Text className="text-white ml-2">필터</Text>
-          </Pressable>
-          <Pressable onPress={() => setShowSortModal(true)} className="flex-row items-center">
-            <Ionicons name="swap-vertical" size={18} color="white" />
-            <Text className="text-white ml-2">{sortOption}</Text>
-          </Pressable>
-        </View>
-
-        {/* 필터 패널 */}
-        {showFilter && (
-          <FilterPanel
-            visible={showFilter}
-            onClose={() => setShowFilter(false)}
-            gender={gender}
-            setGender={setGender}
-          />
-        )}
-
-        {/* 배우 목록 */}
-        <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
-          <View className="flex-row flex-wrap justify-between pt-4">
-            {filteredActors.map((actor) => (
-              <ActorCard key={actor.id} actor={actor} />
-            ))}
-          </View>
-          <View className="h-8" />
-        </ScrollView>
-
-        {/* 정렬 모달 */}
-        <SortModal
-          visible={showSortModal}
-          onClose={() => setShowSortModal(false)}
-          selected={sortOption}
-          onSelect={setSortOption}
-        />
-      </SafeAreaView>
-    </View>
+      <SortModal
+        visible={showSortModal}
+        onClose={() => setShowSortModal(false)}
+        selected={sortOption}
+        onSelect={setSortOption}
+      />
+    </ScreenWrapper>
   );
 }

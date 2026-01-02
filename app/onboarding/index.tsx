@@ -1,8 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Text } from "@/components/ui/text";
 
 const TOTAL_STEPS = 6;
 
@@ -11,20 +15,11 @@ type ActivityType = "staff" | "actor" | null;
 
 export default function OnboardingScreen() {
   const [step, setStep] = useState(1);
-
-  // Step 1: 이름
   const [name, setName] = useState("");
-
-  // Step 2: 아이디
   const [userId, setUserId] = useState("");
-
-  // Step 3: 전화번호
   const [phone, setPhone] = useState("");
-
-  // Step 4: 성별
   const [gender, setGender] = useState<Gender>(null);
 
-  // Step 5: 생년월일
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDay, setBirthDay] = useState("");
@@ -32,10 +27,8 @@ export default function OnboardingScreen() {
   const [showMonthPicker, setShowMonthPicker] = useState(false);
   const [showDayPicker, setShowDayPicker] = useState(false);
 
-  // Step 6: 활동분야
   const [activityType, setActivityType] = useState<ActivityType>(null);
 
-  // 유효성 검사
   const isStep1Valid = name.trim().length >= 2;
   const isStep2Valid = /^[a-zA-Z0-9_]{4,}$/.test(userId);
   const isStep3Valid = /^[0-9]{10,11}$/.test(phone.replace(/-/g, ""));
@@ -66,15 +59,7 @@ export default function OnboardingScreen() {
     if (step < TOTAL_STEPS) {
       setStep(step + 1);
     } else {
-      // TODO: 회원가입 데이터 백엔드로 전송
-      console.log({
-        name,
-        userId,
-        phone,
-        gender,
-        birthDate: `${birthYear}-${birthMonth}-${birthDay}`,
-        activityType,
-      });
+      console.log({ name, userId, phone, gender, birthDate: `${birthYear}-${birthMonth}-${birthDay}`, activityType });
       router.replace("/guide" as any);
     }
   };
@@ -102,13 +87,13 @@ export default function OnboardingScreen() {
       case 1:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">이름</Text>
-            <TextInput
+            <Text className="text-xl font-bold mb-4">이름</Text>
+            <Input
               value={name}
               onChangeText={setName}
               placeholder="엔딩크레딧에 올라가는 본명을 입력하세요"
               placeholderTextColor="#6B7280"
-              className="bg-gray-800 text-white text-base px-4 py-4 rounded-xl mb-3"
+              className="bg-gray-800 text-base px-4 py-4 rounded-xl mb-3"
               autoFocus
             />
             <Text className="text-gray-400 text-sm leading-5">
@@ -123,13 +108,13 @@ export default function OnboardingScreen() {
       case 2:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">아이디</Text>
-            <TextInput
+            <Text className="text-xl font-bold mb-4">아이디</Text>
+            <Input
               value={userId}
               onChangeText={setUserId}
               placeholder="사용할 아이디를 입력하세요"
               placeholderTextColor="#6B7280"
-              className="bg-gray-800 text-white text-base px-4 py-4 rounded-xl mb-3"
+              className="bg-gray-800 text-base px-4 py-4 rounded-xl mb-3"
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -142,13 +127,13 @@ export default function OnboardingScreen() {
       case 3:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">전화번호</Text>
-            <TextInput
+            <Text className="text-xl font-bold mb-4">전화번호</Text>
+            <Input
               value={phone}
               onChangeText={(text) => setPhone(formatPhone(text))}
               placeholder="010-0000-0000"
               placeholderTextColor="#6B7280"
-              className="bg-gray-800 text-white text-base px-4 py-4 rounded-xl mb-3"
+              className="bg-gray-800 text-base px-4 py-4 rounded-xl mb-3"
               keyboardType="phone-pad"
               maxLength={13}
             />
@@ -160,23 +145,19 @@ export default function OnboardingScreen() {
       case 4:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">성별</Text>
+            <Text className="text-xl font-bold mb-4">성별</Text>
             <View className="flex-row gap-3 mb-3">
               <Pressable
                 onPress={() => setGender("male")}
                 className={`flex-1 py-6 rounded-xl items-center ${gender === "male" ? "bg-purple-500" : "bg-gray-800"}`}
               >
-                <Text className={`text-base font-semibold ${gender === "male" ? "text-white" : "text-gray-300"}`}>
-                  남자
-                </Text>
+                <Text className={`text-base font-semibold ${gender === "male" ? "" : "text-gray-300"}`}>남자</Text>
               </Pressable>
               <Pressable
                 onPress={() => setGender("female")}
                 className={`flex-1 py-6 rounded-xl items-center ${gender === "female" ? "bg-purple-500" : "bg-gray-800"}`}
               >
-                <Text className={`text-base font-semibold ${gender === "female" ? "text-white" : "text-gray-300"}`}>
-                  여자
-                </Text>
+                <Text className={`text-base font-semibold ${gender === "female" ? "" : "text-gray-300"}`}>여자</Text>
               </Pressable>
             </View>
             <Text className="text-gray-400 text-sm leading-5">성별을 선택해주세요.</Text>
@@ -186,29 +167,27 @@ export default function OnboardingScreen() {
       case 5:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">생년월일</Text>
+            <Text className="text-xl font-bold mb-4">생년월일</Text>
             <View className="flex-row gap-2 mb-3">
               <Pressable
                 onPress={() => setShowYearPicker(!showYearPicker)}
                 className="flex-1 flex-row items-center justify-between bg-gray-800 px-4 py-4 rounded-xl"
               >
-                <Text className={birthYear ? "text-white" : "text-gray-500"}>{birthYear || "년도"}</Text>
+                <Text className={birthYear ? "" : "text-gray-500"}>{birthYear || "년도"}</Text>
                 <Ionicons name="chevron-down" size={20} color="#6B7280" />
               </Pressable>
-
               <Pressable
                 onPress={() => setShowMonthPicker(!showMonthPicker)}
                 className="flex-1 flex-row items-center justify-between bg-gray-800 px-4 py-4 rounded-xl"
               >
-                <Text className={birthMonth ? "text-white" : "text-gray-500"}>{birthMonth || "월"}</Text>
+                <Text className={birthMonth ? "" : "text-gray-500"}>{birthMonth || "월"}</Text>
                 <Ionicons name="chevron-down" size={20} color="#6B7280" />
               </Pressable>
-
               <Pressable
                 onPress={() => setShowDayPicker(!showDayPicker)}
                 className="flex-1 flex-row items-center justify-between bg-gray-800 px-4 py-4 rounded-xl"
               >
-                <Text className={birthDay ? "text-white" : "text-gray-500"}>{birthDay || "일"}</Text>
+                <Text className={birthDay ? "" : "text-gray-500"}>{birthDay || "일"}</Text>
                 <Ionicons name="chevron-down" size={20} color="#6B7280" />
               </Pressable>
             </View>
@@ -224,7 +203,7 @@ export default function OnboardingScreen() {
                     }}
                     className="py-3 px-4 border-b border-gray-700"
                   >
-                    <Text className="text-white text-center">{year}</Text>
+                    <Text className="text-center">{year}</Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -241,7 +220,7 @@ export default function OnboardingScreen() {
                     }}
                     className="py-3 px-4 border-b border-gray-700"
                   >
-                    <Text className="text-white text-center">{month}월</Text>
+                    <Text className="text-center">{month}월</Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -258,7 +237,7 @@ export default function OnboardingScreen() {
                     }}
                     className="py-3 px-4 border-b border-gray-700"
                   >
-                    <Text className="text-white text-center">{day}일</Text>
+                    <Text className="text-center">{day}일</Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -272,15 +251,13 @@ export default function OnboardingScreen() {
       case 6:
         return (
           <>
-            <Text className="text-white text-xl font-bold mb-4">활동분야</Text>
+            <Text className="text-xl font-bold mb-4">활동분야</Text>
             <View className="flex-row gap-3 mb-3">
               <Pressable
                 onPress={() => setActivityType("staff")}
                 className={`flex-1 py-6 rounded-xl items-center ${activityType === "staff" ? "bg-purple-500" : "bg-gray-800"}`}
               >
-                <Text
-                  className={`text-base font-semibold ${activityType === "staff" ? "text-white" : "text-gray-300"}`}
-                >
+                <Text className={`text-base font-semibold ${activityType === "staff" ? "" : "text-gray-300"}`}>
                   제작(스태프)
                 </Text>
               </Pressable>
@@ -288,9 +265,7 @@ export default function OnboardingScreen() {
                 onPress={() => setActivityType("actor")}
                 className={`flex-1 py-6 rounded-xl items-center ${activityType === "actor" ? "bg-purple-500" : "bg-gray-800"}`}
               >
-                <Text
-                  className={`text-base font-semibold ${activityType === "actor" ? "text-white" : "text-gray-300"}`}
-                >
+                <Text className={`text-base font-semibold ${activityType === "actor" ? "" : "text-gray-300"}`}>
                   출연(배우)
                 </Text>
               </Pressable>
@@ -308,14 +283,12 @@ export default function OnboardingScreen() {
     <SafeAreaView className="flex-1 bg-black">
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} className="flex-1">
         <View className="flex-1 px-6 pt-4">
-          <Text className="text-white text-2xl font-bold mb-6">회원가입</Text>
+          <Text className="text-2xl font-bold mb-6">회원가입</Text>
           <View className="flex-row h-1 mb-8">
             {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
               <View
                 key={index}
-                className={`flex-1 rounded-full ${index < TOTAL_STEPS - 1 ? "mr-1" : ""} ${
-                  index < step ? "bg-purple-500" : "bg-gray-700"
-                }`}
+                className={`flex-1 rounded-full ${index < TOTAL_STEPS - 1 ? "mr-1" : ""} ${index < step ? "bg-purple-500" : "bg-gray-700"}`}
               />
             ))}
           </View>
@@ -325,24 +298,19 @@ export default function OnboardingScreen() {
         </View>
         <View className="flex-row px-6 pb-8 gap-3">
           {step > 1 && (
-            <Pressable
-              onPress={handlePrev}
-              className="bg-gray-800 py-4 px-6 rounded-xl items-center active:bg-gray-700"
-            >
-              <Text className="text-white text-base font-semibold">이전</Text>
-            </Pressable>
+            <Button onPress={handlePrev} className="bg-gray-800 py-4 px-6 rounded-xl items-center active:bg-gray-700">
+              <Text className="text-base font-semibold">이전</Text>
+            </Button>
           )}
-          <Pressable
+          <Button
             onPress={handleNext}
             disabled={!isCurrentStepValid()}
-            className={`flex-1 py-4 rounded-xl items-center ${
-              isCurrentStepValid() ? "bg-purple-500 active:bg-purple-600" : "bg-purple-500/50"
-            }`}
+            className={`flex-1 py-4 rounded-xl items-center ${isCurrentStepValid() ? "bg-purple-500 active:bg-purple-600" : "bg-purple-500/50"}`}
           >
-            <Text className={`text-base font-semibold ${isCurrentStepValid() ? "text-white" : "text-white/50"}`}>
+            <Text className={`text-base font-semibold ${isCurrentStepValid() ? "" : "text-white/50"}`}>
               {step === TOTAL_STEPS ? "이제 끝났어요!" : "다음으로"}
             </Text>
-          </Pressable>
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
